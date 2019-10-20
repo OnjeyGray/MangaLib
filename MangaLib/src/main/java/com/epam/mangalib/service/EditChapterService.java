@@ -21,8 +21,8 @@ import static com.epam.mangalib.util.MangaLibConstant.UPLOAD_FOLDER_CONTEXT_PARA
 import static com.epam.mangalib.util.MangaLibEntityAttribute.*;
 import static com.epam.mangalib.util.MangaLibParameterAttribute.*;
 import static com.epam.mangalib.util.MangaLibShowURI.SHOW_MAIN_URI;
-import static com.epam.mangalib.validation.Validator.validateName;
 import static com.epam.mangalib.validation.Validator.validateFile;
+import static com.epam.mangalib.validation.Validator.validateName;
 
 public class EditChapterService implements Service {
 

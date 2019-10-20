@@ -19,7 +19,7 @@ import java.util.List;
 
 import static com.epam.mangalib.util.MangaLibEntityAttribute.*;
 import static com.epam.mangalib.util.MangaLibJSP.SEARCH_JSP;
-import static com.epam.mangalib.util.MangaLibParameterAttribute.*;
+import static com.epam.mangalib.util.MangaLibParameterAttribute.SEARCH_ATTRIBUTE;
 import static com.epam.mangalib.validation.Validator.validateName;
 
 public class ShowSearchService implements Service {
