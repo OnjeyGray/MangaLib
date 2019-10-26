@@ -1,6 +1,9 @@
 package com.epam.mangalib.util;
 
-public class MangaLibJSP {
+public final class MangaLibJSP {
+
+    private MangaLibJSP() {}
+
     public static final String MAIN_JSP = "/jsp/main.jsp";
     public static final String ACCESS_DENIED_JSP = "/jsp/accessDenied.jsp";
     public static final String USER_JSP = "/jsp/user.jsp";

@@ -3,8 +3,6 @@ package com.epam.mangalib.service;
 import com.epam.mangalib.database.UserDAO;
 import com.epam.mangalib.entity.User;
 import com.epam.mangalib.exception.ValidationException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +23,6 @@ import static com.epam.mangalib.util.MangaLibShowURI.SHOW_MAIN_URI;
 import static com.epam.mangalib.validation.Validator.*;
 
 public class EditUserService implements Service {
-    private static final Logger ROOT_LOGGER = LogManager.getRootLogger();
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException, InterruptedException, ValidationException {
@@ -46,6 +43,8 @@ public class EditUserService implements Service {
             case USER_ATTRIBUTE:
                 editUser(req, resp);
                 break;
+            default:
+                throw new ValidationException(ATTRIBUTE_ERROR);
         }
     }
 
@@ -119,7 +118,7 @@ public class EditUserService implements Service {
         Part part = req.getPart(USER_AVATAR_ATTRIBUTE);
         validateFile(part);
         String fileName = part.getSubmittedFileName();
-        fileName = "UserAvatar" + currentUser.getId() + fileName.substring(fileName.indexOf("."));
+        fileName = "UserAvatar" + currentUser.getId() + fileName.substring(fileName.indexOf('.'));
         String filePath = req.getServletContext().getInitParameter(UPLOAD_FOLDER_CONTEXT_PARAM);
         File file = new File(filePath, fileName);
         Files.copy(part.getInputStream(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);

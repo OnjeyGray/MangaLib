@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 import static com.epam.mangalib.util.MangaLibEntityAttribute.FILE_ATTRIBUTE;
 
-public class Validator {
+public final class Validator {
     public static final String EMPTY_STRING = "";
     public static final String SPACE = " ";
     public static final int NAME_MAX_LENGTH = 100;
@@ -25,6 +25,8 @@ public class Validator {
     public static final String EMAIL_PATTERN = "^([a-z0-9_\\.-]+)@([a-z0-9_\\.-]+)\\.([a-z\\.]{2,6})$";
     public static final int MAX_FILE_SIZE = 10485760;
     public static final String IMAGE_ACCEPT = "image/";
+
+    private Validator() {}
 
     public static String validateName(String name) throws ValidationException {
         if(name == null || name.trim().equals(EMPTY_STRING) ||

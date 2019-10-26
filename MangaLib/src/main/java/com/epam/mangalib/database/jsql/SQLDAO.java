@@ -26,7 +26,7 @@ public class SQLDAO<E extends SQLObject> {
 
     public E mapListToObject(List<Map<String, Object>> mapList) {
         List<E> objectList = mapListToObjectList(mapList);
-        if(objectList.size() == 0) {
+        if(objectList.isEmpty()) {
             return null;
         }
         return objectList.get(0);

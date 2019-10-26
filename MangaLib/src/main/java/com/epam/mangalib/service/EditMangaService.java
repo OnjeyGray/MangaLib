@@ -48,6 +48,8 @@ public class EditMangaService implements Service {
             case MANGA_ATTRIBUTE:
                 editManga(req, resp);
                 break;
+            default:
+                throw new ValidationException(ATTRIBUTE_ERROR);
         }
     }
 
@@ -75,7 +77,7 @@ public class EditMangaService implements Service {
         Part part = req.getPart(MANGA_IMG_ATTRIBUTE);
         validateFile(part);
         String fileName = part.getSubmittedFileName();
-        fileName = "MangaImg" + manga.getId() + fileName.substring(fileName.indexOf("."));
+        fileName = "MangaImg" + manga.getId() + fileName.substring(fileName.indexOf('.'));
         String filePath = req.getServletContext().getInitParameter(UPLOAD_FOLDER_CONTEXT_PARAM);
         File file = new File(filePath, fileName);
         Files.copy(part.getInputStream(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
@@ -84,7 +86,7 @@ public class EditMangaService implements Service {
         resp.sendRedirect((String) req.getSession().getAttribute(CURRENT_PAGE_ATTRIBUTE));
     }
 
-    void editMangaGenre(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
+    void editMangaGenre(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException, ValidationException {
         MangaDAO mangaDAO = new MangaDAO();
         String action = req.getParameter(ACTION);
         long mangaId = Long.parseLong(req.getParameter(MANGA_ID_ATTRIBUTE));
@@ -98,10 +100,12 @@ public class EditMangaService implements Service {
                 mangaDAO.deleteGenre(mangaId, genreId);
                 resp.sendRedirect((String) req.getSession().getAttribute(CURRENT_PAGE_ATTRIBUTE));
                 break;
+            default:
+                throw new ValidationException(ATTRIBUTE_ERROR);
         }
     }
 
-    void editMangaArtist(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
+    void editMangaArtist(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException, ValidationException {
         MangaDAO mangaDAO = new MangaDAO();
         String action = req.getParameter(ACTION);
         long mangaId = Long.parseLong(req.getParameter(MANGA_ID_ATTRIBUTE));
@@ -115,10 +119,12 @@ public class EditMangaService implements Service {
                 mangaDAO.deleteArtist(mangaId, artistId);
                 resp.sendRedirect((String) req.getSession().getAttribute(CURRENT_PAGE_ATTRIBUTE));
                 break;
+            default:
+                throw new ValidationException(ATTRIBUTE_ERROR);
         }
     }
 
-    void editMangaAuthor(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
+    void editMangaAuthor(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException, ValidationException {
         MangaDAO mangaDAO = new MangaDAO();
         String action = req.getParameter(ACTION);
         long mangaId = Long.parseLong(req.getParameter(MANGA_ID_ATTRIBUTE));
@@ -132,10 +138,12 @@ public class EditMangaService implements Service {
                 mangaDAO.deleteAuthor(mangaId, authorId);
                 resp.sendRedirect((String) req.getSession().getAttribute(CURRENT_PAGE_ATTRIBUTE));
                 break;
+            default:
+                throw new ValidationException(ATTRIBUTE_ERROR);
         }
     }
 
-    void editManga(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException {
+    void editManga(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException, ValidationException {
         MangaDAO mangaDAO = new MangaDAO();
         String action = req.getParameter(ACTION);
         switch(action) {
@@ -148,6 +156,8 @@ public class EditMangaService implements Service {
                 mangaDAO.deleteManga(mangaId);
                 resp.sendRedirect(SHOW_MANGA_LIST_URI);
                 break;
+            default:
+                throw new ValidationException(ATTRIBUTE_ERROR);
         }
     }
 
@@ -158,6 +168,4 @@ public class EditMangaService implements Service {
         Manga manga = mangaDAO.getMangaByIdAndLanguage(mangaId, languageId);
         return manga;
     }
-
-
 }

@@ -42,6 +42,8 @@ public class EditChapterService implements Service {
             case CHAPTER_NAME_ATTRIBUTE:
                 editChapterName(req, resp);
                 break;
+            default:
+                throw new ValidationException(ATTRIBUTE_ERROR);
         }
     }
 
@@ -56,7 +58,7 @@ public class EditChapterService implements Service {
         Part part = req.getPart(IMAGE_URL_ATTRIBUTE);
         validateFile(part);
         String fileName = part.getSubmittedFileName();
-        fileName = "Chapter" + chapter.getId() + "Image" + imageId + "Language" + languageId + fileName.substring(fileName.indexOf("."));
+        fileName = "Chapter" + chapter.getId() + "Image" + imageId + "Language" + languageId + fileName.substring(fileName.indexOf('.'));
         String filePath = req.getServletContext().getInitParameter(UPLOAD_FOLDER_CONTEXT_PARAM);
         File file = new File(filePath, fileName);
         Files.copy(part.getInputStream(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
@@ -74,7 +76,7 @@ public class EditChapterService implements Service {
         resp.sendRedirect((String) req.getSession().getAttribute(CURRENT_PAGE_ATTRIBUTE));
     }
 
-    void editChapter(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
+    void editChapter(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException, ValidationException {
         ChapterDAO chapterDAO = new ChapterDAO();
         String action = req.getParameter(ACTION);
         switch (action) {
@@ -88,10 +90,12 @@ public class EditChapterService implements Service {
                 chapterDAO.deleteChapter(chapterId);
                 resp.sendRedirect(SHOW_MAIN_URI);
                 break;
+            default:
+                throw new ValidationException(ATTRIBUTE_ERROR);
         }
     }
 
-    void editChapterImage(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException {
+    void editChapterImage(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException, ValidationException {
         String action = req.getParameter(ACTION);
         ImageDAO imageDAO = new ImageDAO();
         switch (action) {
@@ -105,6 +109,8 @@ public class EditChapterService implements Service {
                 imageDAO.deleteImage(imageId);
                 resp.sendRedirect((String) req.getSession().getAttribute(CURRENT_PAGE_ATTRIBUTE));
                 break;
+            default:
+                throw new ValidationException(ATTRIBUTE_ERROR);
         }
     }
 

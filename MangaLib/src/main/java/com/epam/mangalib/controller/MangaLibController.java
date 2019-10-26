@@ -25,10 +25,10 @@ public class MangaLibController extends HttpServlet {
     }
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NumberFormatException {
         try {
             ServiceFactory.getInstance().getService(req.getRequestURI()).execute(req, resp);
-        } catch (SQLException | InterruptedException e) {
+        } catch (SQLException | InterruptedException | NumberFormatException e) {
             ROOT_LOGGER.error(e);
         } catch (ValidationException e) {
             ROOT_LOGGER.error(e);

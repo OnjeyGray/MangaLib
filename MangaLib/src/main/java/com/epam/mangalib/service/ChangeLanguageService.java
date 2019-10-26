@@ -17,7 +17,7 @@ public class ChangeLanguageService implements Service {
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException, InterruptedException, ValidationException {
         long languageId = Long.parseLong(req.getParameter(LANGUAGE_ID_ATTRIBUTE));
         LanguageDAO languageDAO = new LanguageDAO();
-        Language language = null;
+        Language language;
         language = languageDAO.getLanguageById(languageId);
         if(language != null) {
             req.getSession().setAttribute(CURRENT_LANGUAGE_ATTRIBUTE, language);

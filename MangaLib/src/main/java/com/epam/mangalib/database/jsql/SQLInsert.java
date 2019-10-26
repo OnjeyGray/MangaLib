@@ -14,21 +14,17 @@ public class SQLInsert {
     private StringBuilder queryString = new StringBuilder();
     private List<Object> valueList = new ArrayList<>();
 
-    private void execute() throws SQLException {
-        Connection connection = CONNECTION_POOL.retrieve();
-        try(PreparedStatement preparedStatement = connection.prepareStatement(String.valueOf(queryString))) {
-            for (int i = 0; i < valueList.size(); i++) {
-                preparedStatement.setObject(i + 1, valueList.get(i));
-            }
-            preparedStatement.executeUpdate();
-        } finally {
-            CONNECTION_POOL.putBack(connection);
-        }
-    }
-
     public class Value {
         public void executeInsert() throws SQLException {
-            execute();
+            Connection connection = CONNECTION_POOL.retrieve();
+            try(PreparedStatement preparedStatement = connection.prepareStatement(String.valueOf(queryString))) {
+                for (int i = 0; i < valueList.size(); i++) {
+                    preparedStatement.setObject(i + 1, valueList.get(i));
+                }
+                preparedStatement.executeUpdate();
+            } finally {
+                CONNECTION_POOL.putBack(connection);
+            }
         }
     }
 

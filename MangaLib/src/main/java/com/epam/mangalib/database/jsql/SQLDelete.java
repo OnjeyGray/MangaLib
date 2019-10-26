@@ -13,18 +13,6 @@ public class SQLDelete {
     private StringBuilder queryString = new StringBuilder();
     private List<Object> valueList = new ArrayList<>();
 
-    private void execute() throws SQLException {
-        Connection connection = CONNECTION_POOL.retrieve();
-        try(PreparedStatement preparedStatement = connection.prepareStatement(String.valueOf(queryString))) {
-            for (int i = 0; i < valueList.size(); i++) {
-                preparedStatement.setObject(i + 1, valueList.get(i));
-            }
-            preparedStatement.executeUpdate();
-        } finally {
-            CONNECTION_POOL.putBack(connection);
-        }
-    }
-
     public class AndOr {
         public Where and(String variable) {
             queryString.append("and " + variable + " ");
@@ -37,7 +25,15 @@ public class SQLDelete {
         }
 
         public void executeDelete() throws SQLException {
-            execute();
+            Connection connection = CONNECTION_POOL.retrieve();
+            try(PreparedStatement preparedStatement = connection.prepareStatement(String.valueOf(queryString))) {
+                for (int i = 0; i < valueList.size(); i++) {
+                    preparedStatement.setObject(i + 1, valueList.get(i));
+                }
+                preparedStatement.executeUpdate();
+            } finally {
+                CONNECTION_POOL.putBack(connection);
+            }
         }
     }
 

@@ -28,6 +28,8 @@ public class EditFavoriteService implements Service {
                 mangaDAO.unfavorite(mangaId, userId);
                 resp.sendRedirect((String) req.getSession().getAttribute(CURRENT_PAGE_ATTRIBUTE));
                 break;
+            default:
+                throw new ValidationException(ATTRIBUTE_ERROR);
         }
     }
 }

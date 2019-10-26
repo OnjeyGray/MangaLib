@@ -31,6 +31,8 @@ public class EditAuthorService implements Service {
             case AUTHOR_ATTRIBUTE:
                 editAuthor(req, resp);
                 break;
+            default:
+                throw new ValidationException(ATTRIBUTE_ERROR);
         }
     }
 
@@ -52,7 +54,7 @@ public class EditAuthorService implements Service {
         resp.sendRedirect((String) req.getSession().getAttribute(CURRENT_PAGE_ATTRIBUTE));
     }
 
-    void editAuthor(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException {
+    void editAuthor(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException, ValidationException {
         AuthorDAO authorDAO = new AuthorDAO();
         String action = req.getParameter(ACTION);
         switch (action) {
@@ -65,6 +67,8 @@ public class EditAuthorService implements Service {
                 authorDAO.deleteAuthor(genreId);
                 resp.sendRedirect(SHOW_AUTHOR_LIST_URI);
                 break;
+            default:
+                throw new ValidationException(ATTRIBUTE_ERROR);
         }
     }
 

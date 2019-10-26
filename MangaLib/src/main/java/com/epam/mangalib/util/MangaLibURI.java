@@ -1,6 +1,9 @@
 package com.epam.mangalib.util;
 
-public class MangaLibURI {
+public final class MangaLibURI {
+
+    private MangaLibURI() {}
+
     public static final String LOAD_FILE_URI = "/controller/loadFile";
     public static final String REGISTER_URI = "/controller/register";
     public static final String LOGIN_URI = "/controller/login";

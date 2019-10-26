@@ -1,6 +1,9 @@
 package com.epam.mangalib.util;
 
-public class MangaLibEntityAttribute {
+public final class MangaLibEntityAttribute {
+
+    private MangaLibEntityAttribute() {}
+
     public static final String FILE_NAME_ATTRIBUTE = "fileName";
     public static final String FILE_ATTRIBUTE = "file";
     public static final String AUTHORIZED_USER_ATTRIBUTE = "authorizedUser";

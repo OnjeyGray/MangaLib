@@ -14,33 +14,31 @@ public class SQLCall {
     private List<Object> valueList = new ArrayList<>();
     private List<Map<String, Object>> resultList = new ArrayList<>();
 
-    private List<Map<String, Object>> execute() throws SQLException {
-        Connection connection = CONNECTION_POOL.retrieve();
-        Map<String, Object> resultMap = new HashMap<>();
-        try(CallableStatement callableStatement = connection.prepareCall(String.valueOf(queryString))) {
-            for (int i = 0; i < valueList.size(); i++) {
-                callableStatement.setObject(i + 1, valueList.get(i));
-            }
-            ResultSet resultSet = callableStatement.executeQuery();
-            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-            for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
-                resultMap.put(resultSetMetaData.getColumnName(i), null);
-            }
-            while (resultSet.next()) {
-                for (String columnName : resultMap.keySet()) {
-                    resultMap.put(columnName, resultSet.getObject(columnName));
-                }
-                resultList.add((Map<String, Object>) ((HashMap<String, Object>) resultMap).clone());
-            }
-        } finally {
-            CONNECTION_POOL.putBack(connection);
-        }
-        return resultList;
-    }
-
     public class From {
         public List<Map<String, Object>> executeCall() throws SQLException {
-            return execute();
+            Connection connection = CONNECTION_POOL.retrieve();
+            ResultSet resultSet = null;
+            Map<String, Object> resultMap = new HashMap<>();
+            try(CallableStatement callableStatement = connection.prepareCall(String.valueOf(queryString))) {
+                for (int i = 0; i < valueList.size(); i++) {
+                    callableStatement.setObject(i + 1, valueList.get(i));
+                }
+                resultSet = callableStatement.executeQuery();
+                ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+                for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
+                    resultMap.put(resultSetMetaData.getColumnName(i), null);
+                }
+                while (resultSet.next()) {
+                    for (String columnName : resultMap.keySet()) {
+                        resultMap.put(columnName, resultSet.getObject(columnName));
+                    }
+                    resultList.add((Map<String, Object>) ((HashMap<String, Object>) resultMap).clone());
+                }
+            } finally {
+                resultSet.close();
+                CONNECTION_POOL.putBack(connection);
+            }
+            return resultList;
         }
     }
 

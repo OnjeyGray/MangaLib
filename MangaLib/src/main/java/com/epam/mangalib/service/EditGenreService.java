@@ -31,6 +31,8 @@ public class EditGenreService implements Service {
             case GENRE_ATTRIBUTE:
                 editGenre(req, resp);
                 break;
+            default:
+                throw new ValidationException(ATTRIBUTE_ERROR);
         }
     }
 
@@ -52,7 +54,7 @@ public class EditGenreService implements Service {
         resp.sendRedirect((String) req.getSession().getAttribute(CURRENT_PAGE_ATTRIBUTE));
     }
 
-    void editGenre(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException {
+    void editGenre(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException, ValidationException {
         GenreDAO genreDAO = new GenreDAO();
         String action = req.getParameter(ACTION);
         switch (action) {
@@ -65,6 +67,8 @@ public class EditGenreService implements Service {
                 genreDAO.deleteGenre(genreId);
                 resp.sendRedirect(SHOW_GENRE_LIST_URI);
                 break;
+            default:
+                throw new ValidationException(ATTRIBUTE_ERROR);
         }
     }
 

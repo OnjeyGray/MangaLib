@@ -31,6 +31,8 @@ public class EditArtistService implements Service {
             case ARTIST_ATTRIBUTE:
                 editArtist(req, resp);
                 break;
+            default:
+                throw new ValidationException(ATTRIBUTE_ERROR);
         }
     }
 
@@ -52,7 +54,7 @@ public class EditArtistService implements Service {
         resp.sendRedirect((String) req.getSession().getAttribute(CURRENT_PAGE_ATTRIBUTE));
     }
 
-    void editArtist(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException {
+    void editArtist(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException, ValidationException {
         ArtistDAO artistDAO = new ArtistDAO();
         String action = req.getParameter(ACTION);
         switch (action) {
@@ -65,6 +67,8 @@ public class EditArtistService implements Service {
                 artistDAO.deleteArtist(genreId);
                 resp.sendRedirect(SHOW_ARTIST_LIST_URI);
                 break;
+            default:
+                throw new ValidationException(ATTRIBUTE_ERROR);
         }
     }
 

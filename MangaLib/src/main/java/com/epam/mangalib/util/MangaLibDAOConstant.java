@@ -1,6 +1,9 @@
 package com.epam.mangalib.util;
 
-public class MangaLibDAOConstant {
+public final class MangaLibDAOConstant {
+
+    private MangaLibDAOConstant() {}
+
     public static final String ARTIST_ID = "ARTIST_ID";
     public static final String ARTIST_NAME = "ARTIST_NAME";
     public static final String ARTIST_DESCRIPTION = "ARTIST_DESCRIPTION";

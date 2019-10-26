@@ -1,6 +1,9 @@
 package com.epam.mangalib.util;
 
-public class MangaLibShowURI {
+public final class MangaLibShowURI {
+
+    private MangaLibShowURI() {}
+
     public static final String SHOW_MAIN_URI = "/controller/showMain";
     public static final String SHOW_USER_URI = "/controller/showUser";
     public static final String SHOW_USER_LIST_URI = "/controller/showUserList";

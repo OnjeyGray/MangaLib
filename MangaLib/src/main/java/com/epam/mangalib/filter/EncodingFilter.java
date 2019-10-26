@@ -21,10 +21,8 @@ public class EncodingFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         String contentType = servletRequest.getContentType();
-        if(contentType != null) {
-            if(contentType.startsWith(FILTERABLE_CONTENT_TYPE)) {
-                servletRequest.setCharacterEncoding(encoding);
-            }
+        if(contentType != null && contentType.startsWith(FILTERABLE_CONTENT_TYPE)) {
+            servletRequest.setCharacterEncoding(encoding);
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

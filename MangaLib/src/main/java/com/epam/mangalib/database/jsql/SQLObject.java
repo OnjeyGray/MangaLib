@@ -39,8 +39,11 @@ public class SQLObject {
        if (this == o) return true;
        if (o == null || getClass() != o.getClass()) return false;
         SQLObject sqlObject = (SQLObject) o;
-        for (String string : objectMap.keySet()) {
-            if (!objectMap.get(string).equals(sqlObject.objectMap.get(string))) {
+        if(sqlObject.objectMap.size() != objectMap.size()) {
+            return false;
+        }
+        for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+            if (!entry.getValue().equals(sqlObject.get(entry.getKey()))) {
                 return false;
             }
         }

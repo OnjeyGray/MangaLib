@@ -17,11 +17,12 @@ public class SQLSelect {
     private List<Map<String, Object>> execute() throws SQLException {
         Connection connection = CONNECTION_POOL.retrieve();
         Map<String, Object> resultMap = new HashMap<>();
+        ResultSet resultSet = null;
         try(PreparedStatement preparedStatement = connection.prepareStatement(String.valueOf(queryString))) {
             for (int i = 0; i < valueList.size(); i++) {
                 preparedStatement.setObject(i + 1, valueList.get(i));
             }
-            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
             ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
             for (int i = 1; i <= resultSetMetaData.getColumnCount(); i++) {
                 resultMap.put(resultSetMetaData.getColumnName(i), null);
@@ -33,6 +34,7 @@ public class SQLSelect {
                 resultList.add((Map<String, Object>) ((HashMap<String, Object>) resultMap).clone());
             }
         } finally {
+            resultSet.close();
             CONNECTION_POOL.putBack(connection);
         }
         return resultList;

@@ -1,6 +1,9 @@
 package com.epam.mangalib.util;
 
-public class MangaLibParameterAttribute {
+public final class MangaLibParameterAttribute {
+
+    private MangaLibParameterAttribute() {}
+
     public static final String ERROR_ATTRIBUTE = "error";
     public static final String SEARCH_ATTRIBUTE = "search";
     public static final String LOGIN_ERROR_ATTRIBUTE = "loginError";
@@ -15,6 +18,7 @@ public class MangaLibParameterAttribute {
     public static final String USER_PASSWORD_SUCCESS_ATTRIBUTE = "userPasswordSuccess";
     public static final String USER_AVATAR_SUCCESS_ATTRIBUTE = "userAvatarSuccess";
     public static final String ATTRIBUTE = "attribute";
+    public static final String ATTRIBUTE_ERROR = "attribute_error";
     public static final String ACTION = "action";
     public static final String ADD = "add";
     public static final String DELETE = "delete";

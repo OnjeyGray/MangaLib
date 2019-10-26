@@ -38,7 +38,6 @@ public class ShowMangaService implements Service {
         ChapterDAO chapterDAO = new ChapterDAO();
         List<Chapter> chapterList = chapterDAO.getChapterListByManga(mangaId, languageId);
         manga.setChapterList(chapterList);
-
         req.setAttribute(MANGA_ATTRIBUTE, manga);
         List<User> allUserList = userDAO.getUserList();
         for(User user : userList) {
@@ -60,7 +59,6 @@ public class ShowMangaService implements Service {
             allAuthorList.remove(author);
         }
         req.setAttribute(AUTHOR_LIST_ATTRIBUTE, allAuthorList);
-
         req.getRequestDispatcher(MANGA_JSP).forward(req, resp);
     }
 }

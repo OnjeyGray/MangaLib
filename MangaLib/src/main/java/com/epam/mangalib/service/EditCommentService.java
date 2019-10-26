@@ -21,7 +21,6 @@ public class EditCommentService implements Service {
         CommentDAO commentDAO = new CommentDAO();
         switch (action) {
             case ADD:
-
                 String content = validateDescription(req.getParameter(COMMENT_CONTENT));
                 long chapterId = Long.parseLong(req.getParameter(CHAPTER_ID_ATTRIBUTE));
                 long userId = Long.parseLong(req.getParameter(USER_ID_ATTRIBUTE));
@@ -37,6 +36,8 @@ public class EditCommentService implements Service {
                 commentDAO.deleteComment(commentId);
                 resp.sendRedirect((String) req.getSession().getAttribute(CURRENT_PAGE_ATTRIBUTE));
                 break;
+            default:
+                throw new ValidationException(ATTRIBUTE_ERROR);
         }
     }
 }
