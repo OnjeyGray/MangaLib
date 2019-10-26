@@ -10,7 +10,7 @@
 
     <context-param>
         <param-name>uploadFolder</param-name>
-        <param-value>C:\Users\User\Desktop\MangaLib-master\MangaLibUpload</param-value>
+        <param-value>C:/Users/User/IdeaProjects/MangaLibUpload/</param-value>
     </context-param>
     
     <servlet>
@@ -53,6 +53,10 @@
     <filter>
         <filter-name>PreloadFilter</filter-name>
         <filter-class>com.epam.mangalib.filter.PreloadFilter</filter-class>
+        <init-param>
+            <param-name>active</param-name>
+            <param-value>true</param-value>
+        </init-param>
     </filter>
     <filter-mapping>
         <filter-name>PreloadFilter</filter-name>

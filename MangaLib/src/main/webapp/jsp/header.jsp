@@ -100,4 +100,4 @@
         </div>
     </nav>
 
-    <main id="main" class="py-4" style="min-height: 100%">
+    <main id="main" class="py-4" style="min-height: 90%">
