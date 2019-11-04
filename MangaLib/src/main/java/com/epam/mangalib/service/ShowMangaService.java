@@ -25,6 +25,9 @@ public class ShowMangaService implements Service {
         Manga manga = mangaDAO.getMangaByIdAndLanguage(mangaId, languageId);
         UserDAO userDAO = new UserDAO();
         List<User> userList = userDAO.getUserListByManga(mangaId);
+        for (User user : userList) {
+            user.getObjectMap().remove(MANGA_ID);
+        }
         manga.setUserList(userList);
         GenreDAO genreDAO = new GenreDAO();
         List<Genre> genreList = genreDAO.getGenreListByManga(mangaId, languageId);
