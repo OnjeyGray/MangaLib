@@ -45,7 +45,7 @@ public class ArtistDAO extends SQLDAO<Artist> {
         new SQLInsert().insertInto(ARTIST_TABLE).variables(ARTIST_ID).values(artistId).executeInsert();
         for(Language language : new LanguageDAO().getLanguageList()) {
             new SQLInsert().insertInto(ARTIST_TRANSLATE_TABLE).variables(ARTIST_ID, LANGUAGE_ID, ARTIST_NAME,
-                    ARTIST_DESCRIPTION).values(artistId, language.getId(), language.getName(), language.getName());
+                    ARTIST_DESCRIPTION).values(artistId, language.getId(), language.getName(), language.getName()).executeInsert();
         }
     }
 

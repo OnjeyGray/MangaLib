@@ -45,7 +45,7 @@ public class AuthorDAO extends SQLDAO<Author> {
         new SQLInsert().insertInto(AUTHOR_TABLE).variables(AUTHOR_ID).values(authorId).executeInsert();
         for(Language language : new LanguageDAO().getLanguageList()) {
             new SQLInsert().insertInto(AUTHOR_TRANSLATE_TABLE).variables(AUTHOR_ID, LANGUAGE_ID, AUTHOR_NAME,
-                    AUTHOR_DESCRIPTION).values(authorId, language.getId(), language.getName(), language.getName());
+                    AUTHOR_DESCRIPTION).values(authorId, language.getId(), language.getName(), language.getName()).executeInsert();
         }
     }
 

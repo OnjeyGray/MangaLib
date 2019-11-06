@@ -105,7 +105,7 @@ public class MangaDAO extends SQLDAO<Manga> {
         new SQLInsert().insertInto(MANGA_TABLE).variables(MANGA_ID, MANGA_IMG_URL).values(mangaId, DEFAULT_MANGA_IMG).executeInsert();
         for(Language language : new LanguageDAO().getLanguageList()) {
             new SQLInsert().insertInto(MANGA_TRANSLATE_TABLE).variables(MANGA_ID, LANGUAGE_ID, MANGA_NAME,
-                    MANGA_DESCRIPTION).values(mangaId, language.getId(), language.getName(), language.getName());
+                    MANGA_DESCRIPTION).values(mangaId, language.getId(), language.getName(), language.getName()).executeInsert();
         }
     }
 

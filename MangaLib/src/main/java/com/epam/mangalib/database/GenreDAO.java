@@ -46,7 +46,7 @@ public class GenreDAO extends SQLDAO<Genre> {
         new SQLInsert().insertInto(GENRE_TABLE).variables(GENRE_ID).values(genreId).executeInsert();
         for(Language language : new LanguageDAO().getLanguageList()) {
             new SQLInsert().insertInto(GENRE_TRANSLATE_TABLE).variables(GENRE_ID, LANGUAGE_ID, GENRE_NAME,
-                    GENRE_DESCRIPTION).values(genreId, language.getId(), language.getName(), language.getName());
+                    GENRE_DESCRIPTION).values(genreId, language.getId(), language.getName(), language.getName()).executeInsert();
         }
     }
 

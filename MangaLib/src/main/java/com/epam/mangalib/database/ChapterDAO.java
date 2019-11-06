@@ -36,7 +36,7 @@ public class ChapterDAO extends SQLDAO<Chapter> {
         new SQLInsert().insertInto(CHAPTER_TABLE).variables(CHAPTER_ID, MANGA_ID).values(chapterId, mangaId).executeInsert();
         for(Language language : new LanguageDAO().getLanguageList()) {
             new SQLInsert().insertInto(CHAPTER_TRANSLATE_TABLE).variables(CHAPTER_ID, LANGUAGE_ID, CHAPTER_NAME)
-                    .values(chapterId, language.getId(), language.getName());
+                    .values(chapterId, language.getId(), language.getName()).executeInsert();
         }
     }
 

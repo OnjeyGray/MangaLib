@@ -37,7 +37,7 @@ public class ImageDAO extends SQLDAO<Image> {
         new SQLInsert().insertInto(IMAGE_TABLE).variables(IMAGE_ID, CHAPTER_ID).values(imageId, chapterId).executeInsert();
         for(Language language : new LanguageDAO().getLanguageList()) {
             new SQLInsert().insertInto(IMAGE_TRANSLATE_TABLE).variables(IMAGE_ID, LANGUAGE_ID, IMAGE_URL)
-                    .values(imageId, language.getId(), DEFAULT_MANGA_IMG);
+                    .values(imageId, language.getId(), DEFAULT_MANGA_IMG).executeInsert();
         }
     }
 
