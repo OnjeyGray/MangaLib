@@ -50,7 +50,7 @@ public class AuthorDAO extends SQLDAO<Author> {
     }
 
     public void deleteAuthor(long authorId) throws SQLException {
-        new SQLDelete().deleteFrom(AUTHOR_TABLE).where(AUTHOR_ID).eq(authorId);
+        new SQLDelete().deleteFrom(AUTHOR_TABLE).where(AUTHOR_ID).eq(authorId).executeDelete();
     }
 
     public List<Author> search(String search) throws SQLException {

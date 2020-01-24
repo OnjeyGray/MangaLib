@@ -109,8 +109,8 @@ public class MangaDAO extends SQLDAO<Manga> {
         }
     }
 
-    public void deleteManga(long mangaId) {
-        new SQLDelete().deleteFrom(MANGA_TABLE).where(MANGA_ID).eq(mangaId);
+    public void deleteManga(long mangaId) throws SQLException {
+        new SQLDelete().deleteFrom(MANGA_TABLE).where(MANGA_ID).eq(mangaId).executeDelete();
     }
 
     public void favorite(long mangaId, long userId) throws SQLException {

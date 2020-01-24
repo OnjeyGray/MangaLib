@@ -50,8 +50,8 @@ public class GenreDAO extends SQLDAO<Genre> {
         }
     }
 
-    public void deleteGenre(long genreId) {
-        new SQLDelete().deleteFrom(GENRE_TABLE).where(GENRE_ID).eq(genreId);
+    public void deleteGenre(long genreId) throws SQLException {
+        new SQLDelete().deleteFrom(GENRE_TABLE).where(GENRE_ID).eq(genreId).executeDelete();
     }
 
     public List<Genre> search(String search) throws SQLException {

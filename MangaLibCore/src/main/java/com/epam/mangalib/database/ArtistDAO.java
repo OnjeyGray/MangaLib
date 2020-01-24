@@ -49,8 +49,8 @@ public class ArtistDAO extends SQLDAO<Artist> {
         }
     }
 
-    public void deleteArtist(long artistId) {
-        new SQLDelete().deleteFrom(ARTIST_TABLE).where(ARTIST_ID).eq(artistId);
+    public void deleteArtist(long artistId) throws SQLException {
+        new SQLDelete().deleteFrom(ARTIST_TABLE).where(ARTIST_ID).eq(artistId).executeDelete();
     }
 
     public List<Artist> search(String search) throws SQLException {
