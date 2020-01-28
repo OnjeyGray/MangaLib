@@ -10,7 +10,7 @@
 
     <context-param>
         <param-name>uploadFolder</param-name>
-        <param-value>C:/Users/Andrey_Ivshin/IdeaProjects/MangaLib/MangaLibUpload/</param-value>
+        <param-value>C:/Users/User/IdeaProjects/MangaLib/MangaLibUpload/</param-value>
     </context-param>
     
     <servlet>
